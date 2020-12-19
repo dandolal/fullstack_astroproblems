@@ -41,8 +41,15 @@ const userService = {
     async register(login, password) {
         console.log(login)
         console.log(password)
+        if (login === "") {
+            return reject('Заполните поле логин')
+        }
+        if (password === "") {
+            return reject('Заполните поле пароль')
+        }
         const response = await API.post('/signup', {'username': login, 'password': password})
         console.log(response)
+
         if (response.data === false) {
             return reject('Такой пользователь уже существует')
         } else {
