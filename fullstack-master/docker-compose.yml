@@ -3,7 +3,7 @@ services:
   frontend:
     build: ./frontend
     ports:
-      - 3000:3000
+      - 80:3000
     depends_on:
       - backend
   backend:
@@ -24,7 +24,7 @@ services:
   pgadmin:
     image: dpage/pgadmin4
     ports:
-      - 80:80
+      - 5000:80
     environment:
       PGADMIN_DEFAULT_EMAIL: pgadmin@pgadmin.ru
       PGADMIN_DEFAULT_PASSWORD: pgadmin
