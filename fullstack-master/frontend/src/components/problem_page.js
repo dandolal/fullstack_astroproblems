@@ -34,9 +34,11 @@ class problem_page extends React.Component {
                         <Link to={`/solution_page/${this.id}`} className="btn btn-primary">Показать решение</Link>
                     </div>
                     <p></p>
+                    <div className="container">
                     {this.props.user && this.props.user.login === this.props.problems_list.get(Number(this.id)).user && <div>
                         <Link to={`/edit/${this.id}`} className="btn btn-primary">Редактировать</Link>
                     </div>}
+                    </div>
                 </div>
             </div>
         )
