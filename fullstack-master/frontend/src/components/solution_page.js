@@ -2,7 +2,7 @@ import React from 'react';
 
 import {Link} from "react-router-dom";
 import {connect} from "react-redux";
-import {button_style} from "./styles";
+import {button_style, problems_background} from "./styles";
 
 class solution_page extends React.Component {
     constructor({match, props}) {
@@ -13,12 +13,22 @@ class solution_page extends React.Component {
 
     render() {
         return (
-            <div>
-                <div>
-                    <h1>Я {this.props.problems_list.get(Number(this.id)).name} задача и ее решение </h1>
+            <div style={problems_background}>
+                <div className="container">
+                    <h1>{this.props.problems_list.get(Number(this.id)).name}</h1>
                 </div>
-                <div>
-                    <Link to={`/problem/${this.id}`} className="btn btn-primary">Условие</Link>
+                <div className="card">
+                    <div className="container" >
+                        <h3>Условие</h3>
+                        <p>{this.props.problems_list.get(Number(this.id)).task}</p>
+                        <h3>Решение</h3>
+                        <p>{this.props.problems_list.get(Number(this.id)).solution}</p>
+                        <h4>Автор:</h4>
+                        <p>{this.props.problems_list.get(Number(this.id)).author}</p>
+                    </div>
+                </div>
+                <div className="container">
+                    <Link to={`/problem/${this.id}`} className="btn btn-primary">Скрыть решение</Link>
                 </div>
             </div>
         )

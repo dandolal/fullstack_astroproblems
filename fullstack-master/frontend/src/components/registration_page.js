@@ -1,10 +1,9 @@
 import React from 'react'
-import {problems_list, user} from "./globals";
-import Header from "../model";
 import {connect} from "react-redux";
 import {toRegister} from "../action";
 import {Link} from "react-router-dom";
 import Input from "./input";
+import Button from "./button";
 
 class register extends React.Component {
     constructor(props) {
@@ -18,11 +17,6 @@ class register extends React.Component {
         this.handlePasswordChange = this.handlePasswordChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
     }
-
-    // state = {
-    //     login: '',
-    //     password: '',
-    // }
 
     handleLoginChange(event) {
         this.setState({login: event.target.value});
@@ -64,9 +58,9 @@ class register extends React.Component {
                         <Input type="password" placeholder='Пароль' value={password} onChange={this.handlePasswordChange}
                                onKeyDown={this.handleKeyDown}/>
                     </label>
-                    <button type="submit" value="Войти" className="btn btn-primary"
-                            onClick={this.handleSubmit}>Зарегистрироваться
-                    </button>
+                    <Button type="submit" value="Войти" className="btn btn-primary"
+                            onClick={this.handleSubmit} message="Зарегистрироваться"/>
+
                 </form>
                 <p style={{color: 'red'}}>{this.props.error}</p>
                 <Link to='/login' className="btn btn-primary">Войти</Link>

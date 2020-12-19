@@ -4,6 +4,7 @@ import {toLogin} from "../action";
 import {Link} from "react-router-dom";
 import styles from './form.css'
 import Input from "./input";
+import Button from "./button";
 
 class Login extends React.Component {
     constructor(props) {
@@ -59,9 +60,8 @@ class Login extends React.Component {
                            onChange={this.handlePasswordChange}
                            onKeyDown={this.handleKeyDown}/>
 
-                    <button type="submit" value="Войти" className="btn btn-primary"
-                            onClick={this.handleSubmit}>Войти
-                    </button>
+                    <Button type="submit" value="Войти" className="btn btn-primary"
+                            onClick={this.handleSubmit} message="Войти"/>
                 </form>
                 <p style={{color: 'red'}}>{this.props.error}</p>
                 <Link to='/register' className="btn btn-primary">Зарегистрироваться</Link>

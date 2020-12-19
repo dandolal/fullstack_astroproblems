@@ -2,20 +2,27 @@ import React from 'react'
 import {toLogout} from "../action";
 import {connect} from "react-redux";
 import {Link} from "react-router-dom";
-import {problem_card_style, problems_background} from "./styles";
+import {problem_card_style, problems_background_user} from "./styles";
+import style from "./index.css";
 
 
 const user_problem_card = (props) => {
     console.log(props.problem[1])
     const name = props.username
 
+
     return (
-        <div>{name === props.problem[1].user && <div style={problem_card_style} onClick={() => {
-            props.history.push(`/problem/${props.problem[0]}`)
-        }}>
-            <h3 style={{padding: '4px 8px'}}>{props.problem[1].name}</h3>
-            <p style={{marginLeft: 'auto', marginRight: 'auto'}}>{props.problem[1].task}</p>
-            <p>{props.problem[1].author}</p>
+        <div> {name === props.problem[1].user &&
+        <div className={style.card}>
+            <div className="card" onClick={() => {
+                props.history.push(`/problem/${props.problem[0]}`)
+            }}>
+                <div className="container">
+                    <h3 style={{padding: '4px 8px'}}>{props.problem[1].name}</h3>
+                    <p style={{marginLeft: 'auto', marginRight: 'auto'}}>{props.problem[1].task}</p>
+                    <p>{props.problem[1].author}</p>
+                </div>
+            </div>
         </div>}
         </div>
     )
@@ -53,12 +60,12 @@ class profile extends React.Component {
 
                     <button type="submit" value="Выйти" className="btn btn-primary">Выйти</button>
                 </form>
-                <p> </p>
+                <p></p>
                 <Link to={`/add_problem`} className="btn btn-primary">Добавить задачу</Link>
                 <div>
 
 
-                    { this.props.problems_list && <div style={problems_background}>
+                    {this.props.problems_list && <div style={problems_background_user}>
                         <h1 style={{padding: '8px 16px', opacity: '1'}}>Мои задачи</h1>
                         <div>{Array.from(this.props.problems_list).map((problem, index) => (
                             user_problem_card({

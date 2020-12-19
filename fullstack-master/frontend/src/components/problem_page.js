@@ -1,6 +1,7 @@
 import React from 'react';
 import {Link} from "react-router-dom";
 import {connect} from "react-redux";
+import {problems_background_user} from "./styles";
 
 class problem_page extends React.Component {
     constructor({match, props}) {
@@ -16,14 +17,23 @@ class problem_page extends React.Component {
         return (
             <div>
 
-                <div>
+                <div style={problems_background_user}>
 
-                    <div>
-                        <h1>Я {this.props.problems_list.get(Number(this.id)).name} задача </h1>
+                    <div className="container">
+                        <h1>{this.props.problems_list.get(Number(this.id)).name}</h1>
                     </div>
-                    <div>
-                        <Link to={`/solution_page/${this.id}`} className="btn btn-primary">Решение</Link>
+                    <div className="card">
+                    <div className="container" >
+                        <h3>Условие</h3>
+                        <p>{this.props.problems_list.get(Number(this.id)).task}</p>
+                        <h4>Автор:</h4>
+                        <p>{this.props.problems_list.get(Number(this.id)).author}</p>
                     </div>
+                    </div>
+                    <div className="container">
+                        <Link to={`/solution_page/${this.id}`} className="btn btn-primary">Показать решение</Link>
+                    </div>
+                    <p></p>
                     {this.props.user && this.props.user.login === this.props.problems_list.get(Number(this.id)).user && <div>
                         <Link to={`/edit/${this.id}`} className="btn btn-primary">Редактировать</Link>
                     </div>}

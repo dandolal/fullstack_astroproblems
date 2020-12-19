@@ -8,6 +8,6 @@ export default function Input({name, type, placeholder, error, onChange, onKeyDo
     });
 
 
-    return (<input name={name}  className={className} type={type} placeholder={placeholder} onChange={onChange} onClick={onKeyDown}
+    return (<input name={name}  className={className} type={type} placeholder={placeholder} onChange={onChange} onKeyDown={onKeyDown}
                    value={value}/>)
 }

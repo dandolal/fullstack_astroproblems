@@ -11,6 +11,19 @@ export const problems_background = {
     borderRadius: '20px'
 }
 
+export const problems_background_user = {
+    margin: 'auto',
+
+    width: '70%',
+
+    top: '10vh',
+    height: '68vh',
+
+    background: 'grey',
+    opacity: '0.75',
+    borderRadius: '20px'
+}
+
 export const problem_card_style= {
     ':focus':{
         borderBottom: '2px solid black'

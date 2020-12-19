@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import {connect} from "react-redux";
 import Problem from "../problem/Problem";
 import {addProblem, toInit} from "../action";
+import Input from "./input";
 
 function  AddProblem(props){
 
@@ -51,16 +52,16 @@ function  AddProblem(props){
             <form onSubmit={handleSubmit}>
                 <label>
                     Название:
-                    <input type="text" value={name} onChange={handleChangeName}
+                    <Input type="text" value={name} onChange={handleChangeName}
                            onKeyDown={handleKeyDown}/>
                     Условие:
-                    <input type="text" value={task} onChange={handleChangeTask}
+                    <Input type="text" value={task} onChange={handleChangeTask}
                            onKeyDown={handleKeyDown}/>
                     Решение:
-                    <input type="text" value={solution} onChange={handleChangeSolution}
+                    <Input type="text" value={solution} onChange={handleChangeSolution}
                            onKeyDown={handleKeyDown}/>
                     Автор:
-                    <input type="text" value={author} onChange={handleChangeAuthor}
+                    <Input type="text" value={author} onChange={handleChangeAuthor}
                            onKeyDown={handleKeyDown}/>
                 </label>
                 <input type="submit" value="Сохранить" className="btn btn-primary"/>
