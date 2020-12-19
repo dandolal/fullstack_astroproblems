@@ -1,1 +1,1 @@
-# fullstak_aastroproblems
+# fullstack_astroproblems
