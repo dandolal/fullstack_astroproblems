@@ -1,11 +1,11 @@
 import React from 'react'
 import {connect} from "react-redux";
 import {toRegister} from "../action";
-import {Link} from "react-router-dom";
+import {Link, Redirect} from "react-router-dom";
 import Input from "./input";
 import Button from "./button";
 
-class register extends React.Component {
+class Register extends React.Component {
     constructor(props) {
         super(props);
         this.login = '';
@@ -34,8 +34,8 @@ class register extends React.Component {
         } = this.state;
 
 
-        this.props.register(login, password).then(() => {
-            this.props.history.push(`/profile/${this.props.user.login}`);
+        this.props.register(login, password, this.props.cookies).then(() => {
+            this.setState({redirect: true})
         }).catch((error) => {this.setState({login: '', password: '', error: error})})
     }
 
@@ -47,6 +47,10 @@ class register extends React.Component {
 
 
     render() {
+        const {redirect} = this.state
+        if (redirect) {
+            return <Redirect to='/profile'/>
+        }
         let {login, password} = this.state;
         return (
             <div>
@@ -82,4 +86,4 @@ const mapDispatchToProps = (dispatch) => {
     }
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(register);
+export default connect(mapStateToProps, mapDispatchToProps)(Register);

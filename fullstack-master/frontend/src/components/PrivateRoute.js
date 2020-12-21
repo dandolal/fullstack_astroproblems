@@ -6,7 +6,9 @@ function PrivateRoute(props) {
     console.log('In Router');
     const {user, ...rest} = props;
     if (!user) {
-        return <Redirect to={{pathname: '/login'}}/>
+
+        
+            return <Redirect to={{pathname: '/login'}}/>
     }
     return (
         <Route {...rest}/>

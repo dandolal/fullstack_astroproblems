@@ -12,6 +12,12 @@ class solution_page extends React.Component {
     }
 
     render() {
+        if (!this.props.problems_list) {
+            return (<h1>Loading...</h1>)
+        }
+        if (!this.props.problems_list.get(Number(this.id))) {
+            return (<h1>Ошибка 404. Такой задачи не существует.</h1>)
+        }
         return (
             <div style={problems_background}>
                 <div className="container">

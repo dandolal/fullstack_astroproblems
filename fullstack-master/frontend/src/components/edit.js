@@ -9,7 +9,10 @@ function  EditForm(props){
 
     console.log(props.match)
     console.log(props)
-    const problem = props.problems_list.get(Number(id.problem_id))
+    let problem = new Problem()
+    if (props.problems_list.get(Number(id.problem_id))) {
+        problem = props.problems_list.get(Number(id.problem_id))
+    } 
     const [state, setState] = useState({name: problem.name,
         task: problem.task,
         solution: problem.solution,
@@ -46,7 +49,12 @@ function  EditForm(props){
             event.preventDefault();
         }
     }
-
+    if (!props.problems_list) {
+        return (<h1>Loading...</h1>)
+    }
+    if (!props.problems_list.get(Number(id.problem_id))) {
+        return (<h1>Ошибка 404. Такой задачи не существует.</h1>)
+    }
 
         let {name, task, solution, author} = state;
         return (

@@ -1,39 +1,51 @@
 import React from 'react'
 import {toLogout} from "../action";
 import {connect} from "react-redux";
-import {Link} from "react-router-dom";
+import {Link, Redirect, useHistory} from "react-router-dom";
 import {problem_card_style, problems_background_user} from "./styles";
 import style from "./index.css";
 
 
-const user_problem_card = (props) => {
-    console.log(props.problem[1])
-    const name = props.username
+class User_problem_card extends React.Component{
+    constructor(props) {
+        super(props);
+        this.name = this.props.username
+        this.state = {name: this.name}
+    }
+    click
+    render() {
+        const {redirect} = this.state
+        if (redirect) {
+            return <Redirect to={'/problem/' + this.props.problem[1].id}/>
+        }
 
+        return (
 
-    return (
-        <div> {name === props.problem[1].user &&
-        <div className={style.card}>
-            <div className="card" onClick={() => {
-                props.history.push(`/problem/${props.problem[0]}`)
-            }}>
-                <div className="container">
-                    <h3 style={{padding: '4px 8px'}}>{props.problem[1].name}</h3>
-                    <p style={{marginLeft: 'auto', marginRight: 'auto'}}>{props.problem[1].task}</p>
-                    <p>{props.problem[1].author}</p>
+            <div> {this.name === this.props.problem[1].user &&
+            <div className={style.card}>
+                <div className="card" onClick={() => {
+                    this.setState({redirect: true})
+                }}>
+                    <div className="container">
+                        <h3 style={{padding: '4px 8px'}}>{this.props.problem[1].name}</h3>
+                        <p style={{marginLeft: 'auto', marginRight: 'auto'}}>{this.props.problem[1].task}</p>
+                        <p>{this.props.problem[1].author}</p>
+                    </div>
                 </div>
+            </div>}
             </div>
-        </div>}
-        </div>
-    )
+        )
+    }
 }
 
 
-class profile extends React.Component {
-    constructor(props) {
+class Profile extends React.Component {
+    constructor(props, cookies) {
         super(props);
+        this.cookies = cookies;
         this.login = this.props.user.login;
-
+        console.log(this.cookies)
+        console.log(this.props)
         this.state = {login: this.login,};
 
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -43,12 +55,17 @@ class profile extends React.Component {
         event.preventDefault()
 
 
-        this.props.logout(this.props.user.login).then(() => {
-            this.props.history.push('/');
-        })
+        this.props.logout(this.props.user.login, this.props.cookies).then(() => {this.setState({redirect: true})}
+        )
     }
 
     render() {
+
+        console.log(this.props)
+        const {redirect} = this.state
+        if (redirect) {
+            return <Redirect to='/'/>
+        }
 
         return (
             <div>
@@ -68,12 +85,13 @@ class profile extends React.Component {
                     {this.props.problems_list && <div style={problems_background_user}>
                         <h1 style={{padding: '8px 16px', opacity: '1'}}>Мои задачи</h1>
                         <div>{Array.from(this.props.problems_list).map((problem, index) => (
-                            user_problem_card({
-                                problem: problem,
-                                index: index,
-                                history: this.props.history,
-                                username: this.props.user.login
-                            })
+
+                            //     new User_problem_card({
+                            //     problem: problem,
+                            //     index: index,
+                            //     username: this.props.user.login
+                            // })
+                            <User_problem_card problem={problem} inde={index} username={this.props.user.login}/>
                         ))}
                         </div>
                     </div>}
@@ -93,8 +111,8 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
     console.log('map logout')
     return {
-        logout: (login) => dispatch(toLogout(login)),
+        logout: (...args) => dispatch(toLogout(...args)),
     }
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(profile);
+export default connect(mapStateToProps, mapDispatchToProps)(Profile);

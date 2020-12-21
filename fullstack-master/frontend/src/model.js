@@ -5,7 +5,7 @@ import {connect} from "react-redux";
 
 const user_button = (props) => {
     return (
-        <Link to={`/profile/${props.user.login}`}
+        <Link to={`/profile`}
               className="w3-bar-item w3-button w3-padding-16"><i
             class="far fa-user"></i><b> {props.user.login}</b></Link>
     )

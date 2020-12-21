@@ -6,6 +6,7 @@ import {createStore, applyMiddleware} from "redux";
 import {Provider} from 'react-redux'
 import rootReducer from './reducers/index'
 import thunkMiddleware from 'redux-thunk'
+import {CookiesProvider} from 'react-cookie';
 
 const store = createStore(
     rootReducer,
@@ -13,13 +14,13 @@ const store = createStore(
 );
 
 
-
-
 ReactDOM.render(
     <React.StrictMode>
-        <Provider store={store}>
-            <App />
-        </Provider>
+        <CookiesProvider>
+            <Provider store={store}>
+                <App />
+            </Provider>
+        </CookiesProvider>
     </React.StrictMode>,
     document.getElementById('root')
 )

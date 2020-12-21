@@ -1,12 +1,13 @@
 import React from 'react'
 import {connect} from "react-redux";
 import {toLogin} from "../action";
-import {Link} from "react-router-dom";
+import {Link, Redirect} from "react-router-dom";
 import styles from './form.css'
 import Input from "./input";
 import Button from "./button";
 
 class Login extends React.Component {
+
     constructor(props) {
         super(props);
 
@@ -16,6 +17,7 @@ class Login extends React.Component {
         this.handlePasswordChange = this.handlePasswordChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
     }
+
 
     handleLoginChange(event) {
         this.setState({login: event.target.value});
@@ -33,9 +35,10 @@ class Login extends React.Component {
         } = this.state;
 
 
-        this.props.login(login, password).then(() => {
-            this.props.history.push('/');
+        this.props.login(login, password, this.props.cookies).then(() => {
+            this.setState({redirect: true})
         }).catch((error) => {
+            console.log(error)
             this.setState({login: '', password: '', error: error})
         })
     }
@@ -48,6 +51,11 @@ class Login extends React.Component {
 
 
     render() {
+        const {redirect} = this.state
+        if (redirect) {
+            return <Redirect to='/profile'/>
+        }
+        console.log(this.props)
         let {login, password} = this.state;
         return (
             <div>
